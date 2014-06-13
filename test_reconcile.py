@@ -8,7 +8,7 @@ testcases_split = [
     ('Kocks Consult GmbH# (Germany) in association with #BCL# (Bangladesh)and #Kyrgyzdortransproject#',
         [('Kocks Consult GmbH', 'Germany'), ('BCL', 'Bangladesh'), ('Kyrgyzdortransproject', None)]),
     ('Consortium of: ABG S.A. (Lead Partner) and Asseco Poland S.A.',
-        [('ABG S.A.', None), ('Asseco Poland S.A.', None)]),
+        [('ABG S.A.', None), ('Asseco Poland S.A.', 'Poland')]),
     ('JV of GVG (GERMANY) (Leading partner) and Swedish Public EmploymentService',
         [('GVG', 'GERMANY'), ('Swedish Public EmploymentService', None)]),
     ('PT. Indomas Mulia JV PT. Prismaita Cipta Kreasi',
