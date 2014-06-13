@@ -43,7 +43,7 @@ def split(company_name:str) -> iter:
         name_and_country = [company_name]
     for x in name_and_country:
         m = re.match(r'([^\(]+)\(([^\)]+)\)? *$', x)
-        if m and not re.match(r'lead|partner', m.group(2), flags = re.IGNORECASE):
+        if m and not re.search(r'lead|partner', m.group(2), flags = re.IGNORECASE):
             yield m.group(1), m.group(2)
         else:
             yield x, None
@@ -55,12 +55,14 @@ def respell(company_name:str) -> str:
     n = strip(re.sub(r'(?:M/[Ss]|«|»|^P[tT].? )', '', n))
     return n
 
-def bid(name):
+def bids(name):
     for company, country in split(name):
         if country == None:
             s = re.search(COUNTRY, company)
             if s != None:
                 country = s.group()
+        elif not re.search(COUNTRY, country):
+            country = None
         yield respell(company), country
 
 def args(reader):
@@ -73,7 +75,7 @@ def args(reader):
             'bidder.country': bid['Country'],
             'bid.status': bid['Status'],
         }
-        for company, country in split(bid['Name']):
+        for company, country in bids(bid['Name']):
             company_data = dict(bid_data)
             company_data['original.company.country'] = country
             yield company_data, company

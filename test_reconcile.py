@@ -32,7 +32,7 @@ testcases_respell = [
 ]
 
 def check_bid(o, e):
-    n.assert_list_equal(list(r.bid(o)), e)
+    n.assert_list_equal(list(r.bids(o)), e)
 
 def test():
     testcases = testcases_split + [(a,[b]) for a,b in testcases_respell]
