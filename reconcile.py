@@ -10,10 +10,7 @@ from company import reconcile
 def ask(writer, args):
     bid_data, query = args
     if query != '':
-        try:
-            results = reconcile(None, query)
-        except OSError:
-            results = reconcile(None, hash(query), query)
+        results = reconcile(None, query)
         if len(results) > 0:
             name = results[0]['name']
             uri = results[0]['uri']
