@@ -7,6 +7,8 @@ import os, csv, sys
 from thready import threaded
 from company import reconcile
 
+COUNTRY
+
 def ask(writer, args):
     data, query = args
     if query != '':
@@ -68,6 +70,8 @@ def args(reader):
             company_data = dict(bid_data)
             company_data['original.company.country'] = country
             yield company_data, company
+
+
 
 def main():
     fieldnames = [

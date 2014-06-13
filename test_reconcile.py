@@ -36,3 +36,6 @@ def test():
     testcases = testcases_split + [(a,[b]) for a,b in testcases_respell]
     for observed, expected in testcases:
         yield check_bid, observed, expected
+
+def test_country():
+    n.assert_list_equal(re.findall(r.COUNTRY, 'aeu notehu New Zealand aoeunth'), ['New Zealand'])
