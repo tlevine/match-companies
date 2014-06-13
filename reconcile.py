@@ -21,7 +21,7 @@ def ask(writer, args):
             'opencorporates.company.name': name,
             'opencorporates.company.uri': uri,
         })
-        writer.writerow(bid_data)
+        writer.writerow(data)
 
 def strip(x:str) -> str:
     return x.strip(' \r\n,-;:()#')
