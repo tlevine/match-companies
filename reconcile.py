@@ -46,9 +46,8 @@ def split(company_name:str) -> iter:
 def respell(company_name:str) -> str:
     n = str(company_name)
     n = re.sub(r'^Ltd ?(.*)$', r'\1 Ltd', n, flags = re.IGNORECASE)
- #  n += ')' * (n.count('(') - n.count(')')) # Balance parantheses
     n = re.sub(r'\([^)]*$', '', n)
-    n = strip(re.sub(r'(?:M/[Ss]|«|»)', '', n))
+    n = strip(re.sub(r'(?:M/[Ss]|«|»|^P[tT].? )', '', n))
     return n
 
 def bid(name):
