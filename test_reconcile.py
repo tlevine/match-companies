@@ -30,7 +30,7 @@ testcases_respell = [
 ]
 
 def check(o, e):
-    n.assert_list_equal([r.respell(x) for x in r.split(o)], e)
+    n.assert_list_equal([(r.respell(company), country) for company, country in r.split(o)], e)
 
 def test():
     testcases = testcases_split + [(a,[b]) for a,b in testcases_respell]
