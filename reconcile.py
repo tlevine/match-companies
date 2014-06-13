@@ -30,12 +30,18 @@ def split(company_name:str) -> list:
     Split up a company name into one or more real company names.
     '''
     _split = r'(?:in association with|[^a-z]and | JV |Leader|Partner| y )'
-    _remove = r'(?:(?:^JV | JV )(?:of )?| JV$|\(?Lead(?:ing)? partner\)?|Consortium of:? ?|Leading|Partner|^JV:? ?|Joint venture(?: of)?|^M\/?S |\([^\)]+\))'
+    _remove = r'(?:(?:^JV | JV )(?:of )?| JV$|\(?Lead(?:ing)? partner\)?|Consortium of:? ?|Leading|Partner|^JV:? ?|Joint venture(?: of)?|^M\/?S )'
     if re.search(r'(?:in association with|Consortium of|JV |^JV|joint venture| y )', company_name, flags = re.IGNORECASE):
         messy = re.split(_split, company_name, flags = re.IGNORECASE)
-        return list(filter(None, map(lambda x: strip(re.sub(_remove, '', x, flags = re.IGNORECASE)), messy)))
+        name_and_country = filter(None, map(lambda x: strip(re.sub(_remove, '', x, flags = re.IGNORECASE)), messy))
     else:
-        return [company_name]
+        name_and_country = [company_name]
+    for x in name_and_country:
+        m = re.match(r'([^\(]+)\(([^\)]+)\) *$', x)
+        if m:
+            yield m.group(1), m.group(2)
+        else:
+            yield x, None
 
 def respell(company_name:str) -> str:
     n = str(company_name)
