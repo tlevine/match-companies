@@ -48,15 +48,15 @@ def respell(company_name:str) -> str:
 def args(reader):
     for bid in reader:
         bid_data = {
-            'project.uri': reader['Link'],
-            'project.name': reader['ProjectName'],
-            'contract.number': reader['ContractNo'],
-            'bid.status': reader['Status'],
-            'bidder.name': reader['Name'],
-            'bidder.country': reader['Country'],
+            'project.uri': bid['Link'],
+            'project.name': bid['ProjectName'],
+            'contract.number': bid['ContractNo'],
+            'bid.status': bid['Status'],
+            'bidder.name': bid['Name'],
+            'bidder.country': bid['Country'],
         }
         for company in split(bid['Name']):
-            yield bid_data, name
+            yield bid_data, company
 
 def main():
     fieldnames = [
