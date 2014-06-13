@@ -26,6 +26,8 @@ bid.status
     or "rejected" (rejected before evaluation for not following formal bid procedures).
 original.company.name
     Name of the company as listed on the World Bank website
+original.company.country
+    Country of the company as listed on the World Bank website
 opencorporates.company.name
     Original company names were reconciled with the Open Corporates reconciliation API.
     If a match was found, this field contains the Open Corporates name; otherwise,

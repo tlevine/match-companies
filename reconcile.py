@@ -18,6 +18,7 @@ def ask(writer, args):
             name = uri = None
         bid_data.update({
             'original.company.name': query,
+            'original.company.country': None,
             'opencorporates.company.name': name,
             'opencorporates.company.uri': uri,
         })
@@ -48,12 +49,12 @@ def respell(company_name:str) -> str:
 def args(reader):
     for bid in reader:
         bid_data = {
-            'project.uri': bid['Link'],
             'project.name': bid['ProjectName'],
+            'contract.uri': bid['Link'],
             'contract.number': bid['ContractNo'],
-            'bid.status': bid['Status'],
             'bidder.name': bid['Name'],
             'bidder.country': bid['Country'],
+            'bid.status': bid['Status'],
         }
         for company in split(bid['Name']):
             yield bid_data, company
