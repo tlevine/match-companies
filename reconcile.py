@@ -8,7 +8,7 @@ from thready import threaded
 from company import reconcile
 
 def ask(writer, args):
-    bid_data, query = args
+    data, query = args
     if query != '':
         results = reconcile(None, query)
         if len(results) > 0:
@@ -16,7 +16,7 @@ def ask(writer, args):
             uri = results[0]['uri']
         else:
             name = uri = None
-        bid_data.update({
+        data.update({
             'original.company.name': query,
             'opencorporates.company.name': name,
             'opencorporates.company.uri': uri,
@@ -25,7 +25,7 @@ def ask(writer, args):
 
 def strip(x:str) -> str:
     return x.strip(' \r\n,-;:()#')
-def split(company_name:str) -> list:
+def split(company_name:str) -> iter:
     '''
     Split up a company name into one or more real company names.
     '''
@@ -37,6 +37,7 @@ def split(company_name:str) -> list:
     else:
         name_and_country = [company_name]
     for x in name_and_country:
+        print(x)
         m = re.match(r'([^\(]+)\(([^\)]+)\) *$', x)
         if m:
             yield m.group(1), m.group(2)
