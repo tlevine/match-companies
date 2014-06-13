@@ -38,7 +38,7 @@ def split(company_name:str) -> iter:
         name_and_country = [company_name]
     for x in name_and_country:
         m = re.match(r'([^\(]+)\(([^\)]+)\)? *$', x)
-        if m:
+        if m and not re.match(r'lead|partner', m.group(2), flags = re.IGNORECASE):
             yield m.group(1), m.group(2)
         else:
             yield x, None
