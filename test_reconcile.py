@@ -1,3 +1,5 @@
+import re
+
 import nose.tools as n
 
 import reconcile as r
@@ -36,3 +38,7 @@ def test():
     testcases = testcases_split + [(a,[b]) for a,b in testcases_respell]
     for observed, expected in testcases:
         yield check_bid, observed, expected
+
+def test_country():
+    print(r.COUNTRY)
+    n.assert_list_equal(re.findall(r.COUNTRY, 'aeu notehu New Zealand aoeunth'), ['New Zealand'])

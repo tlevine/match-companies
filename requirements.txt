@@ -1,0 +1,2 @@
+company>=0.0.4
+datapackage>=0.3.0
