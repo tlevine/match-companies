@@ -29,7 +29,7 @@ def split(company_name:str) -> iter:
     '''
     Split up a company name into one or more real company names.
     '''
-    _split = r'(?:in association with|[^a-z]and | JV |Leader|Partner| y )'
+    _split = r'(?:in association with|[^a-z]and | JV |Leader|Partner| y |,)'
     _remove = r'(?:(?:^JV | JV )(?:of )?| JV$|\(?Lead(?:ing)? partner\)?|Consortium of:? ?|Leading|Partner|^JV:? ?|Joint venture(?: of)?|^M\/?S )'
     if re.search(r'(?:in association with|Consortium of|JV |^JV|joint venture| y )', company_name, flags = re.IGNORECASE):
         messy = re.split(_split, company_name, flags = re.IGNORECASE)
