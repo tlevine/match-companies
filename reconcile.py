@@ -8,7 +8,7 @@ from thready import threaded
 from company import reconcile
 
 def ask(writer, args):
-    contract_uri, query = args
+    bid_data, query = args
     if query != '':
         results = reconcile(None, query)
         if len(results) > 0:
@@ -16,12 +16,12 @@ def ask(writer, args):
             uri = results[0]['uri']
         else:
             name = uri = None
-        writer.writerow({
-            'contract.uri': contract_uri,
+        bid_data.update({
             'original.company.name': query,
             'opencorporates.company.name': name,
             'opencorporates.company.uri': uri,
         })
+        writer.writerow(bid_data)
 
 def strip(x:str) -> str:
     return x.strip(' \r\n,-;:()#')
@@ -46,13 +46,34 @@ def respell(company_name:str) -> str:
     return n
 
 def args(reader):
-    for company in reader:
-        for name in split(company['Name']):
-            yield company['Link'], name
+    for bid in reader:
+        bid_data = {
+            'project.uri': reader[''],
+            'project.name': reader[''],
+            'contract.number': reader[''],
+            'bid.uri': reader[''],
+            'bid.status': reader[''],
+            'bidder.name': reader[''],
+            'bidder.country': reader[''],
+        }
+        for company in split(bid['Name']):
+            yield bid_data, name
 
 def main():
+    fieldnames = [
+        'project.uri',
+        'project.name',
+        'contract.number',
+        'bid.uri',
+        'bid.status',
+        'bidder.name',
+        'bidder.country',
+        'original.company.name',
+        'opencorporates.company.name',
+        'opencorporates.company.uri',
+    ]
     reader = csv.DictReader(open(os.path.join('pagedata', 'company.csv')))
-    writer = csv.DictWriter(sys.stdout, fieldnames = ['contract.uri', 'original.company.name', 'opencorporates.company.name', 'opencorporates.company.uri'])
+    writer = csv.DictWriter(sys.stdout, fieldnames = fieldnames)
     writer.writeheader()
     threaded(args(reader), partial(ask, writer), num_threads = 30)
 
