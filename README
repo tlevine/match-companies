@@ -1,0 +1,36 @@
+The present package produces a data table about the entities who have bid on
+contracts for projects funded by the World Bank Group. The resulting table is
+called "companies.csv".
+
+Within any project funded by the World Bank, many different contracts may be
+involved. Several different bidders will bid on each contract. Bidders are
+usually single companies, but they are sometimes joint ventures of multiple
+companies. Each row in the "companies.csv" table corresponds to a company
+inside a bidder inside a contract inside a project.
+
+We have the following fields for each company.
+
+project.name
+    Name of the project that the company bid on
+contract.uri
+    Page on the World Bank website for the contract that the company bid on
+contract.number
+    Identification number for the contract
+bidder.name
+    This is the name of the bidder. This is not necessarily a company because
+    a bidder can be a joint venture of multiple companies.
+bidder.country
+    Country for the bidder
+bid.status
+    Bids are "awarded" (evaluated and chosen) "evaluated" (evaluated and not chosen)
+    or "rejected" (rejected before evaluation for not following formal bid procedures).
+original.company.name
+    Name of the company as listed on the World Bank website
+opencorporates.company.name
+    Original company names were reconciled with the Open Corporates reconciliation API.
+    If a match was found, this field contains the Open Corporates name; otherwise,
+    this field is empty.
+opencorporates.company.uri
+    Original company names were reconciled with the Open Corporates reconciliation API.
+    If a match was found, this field contains the Open Corporates URI; otherwise,
+    this field is empty.
