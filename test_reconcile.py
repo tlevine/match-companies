@@ -29,10 +29,10 @@ testcases_respell = [
     ("M/S Nyakirang'ani Construction Ltd", ("Nyakirang'ani Construction Ltd", None)),
 ]
 
-def check(o, e):
-    n.assert_list_equal([(r.respell(company), country) for company, country in r.split(o)], e)
+def check_bid(o, e):
+    n.assert_list_equal(list(r.bid(o)), e)
 
 def test():
     testcases = testcases_split + [(a,[b]) for a,b in testcases_respell]
     for observed, expected in testcases:
-        yield check, observed, expected
+        yield check_bid, observed, expected

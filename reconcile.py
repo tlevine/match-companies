@@ -51,6 +51,10 @@ def respell(company_name:str) -> str:
     n = strip(re.sub(r'(?:M/[Ss]|«|»)', '', n))
     return n
 
+def bid(name):
+    for company, country in split(name):
+        yield respell(company), country
+
 def args(reader):
     for bid in reader:
         bid_data = {
