@@ -1,7 +1,8 @@
 The present package produces a data table about the entities who have bid on
-contracts for projects funded by the World Bank Group. The resulting table is
-called "companies.csv".
+contracts for projects funded by the World Bank Group.
 
+Data dictionary
+=============================
 Within any project funded by the World Bank, many different contracts may be
 involved. Several different bidders will bid on each contract. Bidders are
 usually single companies, but they are sometimes joint ventures of multiple
@@ -36,3 +37,16 @@ opencorporates.company.uri
     Original company names were reconciled with the Open Corporates reconciliation API.
     If a match was found, this field contains the Open Corporates URI; otherwise,
     this field is empty.
+
+Maxime Rusaev produced some of these fields, (in the ``./scraper`` directory.)
+and then Thomas Levine split those up further (in the ``reconcile.py`` file).
+
+Acquiring the resulting data
+===================================
+The resulting table is called "companies.csv".
+
+You can access the resulting dataset at
+http://small.dada.pink/match-companies-output/companies.csv
+or by running ::
+
+    ./reconcile.py
