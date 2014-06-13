@@ -18,15 +18,15 @@ testcases_split = [
     ('Joint venture of OJSC RB&E OF GAVAR and Chanaparh LLC',
         [('OJSC RB&E OF GAVAR', None), ('Chanaparh LLC', None)]),
     ('Joint Venture of STEGET srl (Italy),ESTIA srl (Italy), SWSEngineeering S.P.A. (Italy), GDP Consultants (Italy), Studio SANI (Italy)',
-        [('STEGET srl', 'Italy), ('ESTIA srl', 'Italy'), ('SWSEngineeering S.P.A.', 'Italy'), ('GDP Consultants', 'Italy'), ('Studio SANI', 'Italy')]),
+        [('STEGET srl', 'Italy'), ('ESTIA srl', 'Italy'), ('SWSEngineeering S.P.A.', 'Italy'), ('GDP Consultants', 'Italy'), ('Studio SANI', 'Italy')]),
 ]
 
 testcases_respell = [
-    ('PT. Indomas Mulia', 'Indomas Mulia'),
-    ('Ltd «Navovar-2003»', 'Navovar-2003 Ltd'),
-    ('M/s Haffkine Bio-Pharmaceutical Corporation Ltd', 'Haffkine Bio-Pharmaceutical Corporation Ltd'),
-    ('#BCL# (Bangladesh', 'BCL'),
-    ("M/S Nyakirang'ani Construction Ltd", "Nyakirang'ani Construction Ltd"),
+    ('PT. Indomas Mulia', ('Indomas Mulia', None)),
+    ('Ltd «Navovar-2003»', ('Navovar-2003 Ltd', None)),
+    ('M/s Haffkine Bio-Pharmaceutical Corporation Ltd', ('Haffkine Bio-Pharmaceutical Corporation Ltd', None)),
+    ('#BCL# (Bangladesh', ('BCL', 'Bangladesh')),
+    ("M/S Nyakirang'ani Construction Ltd", ("Nyakirang'ani Construction Ltd", None)),
 ]
 
 def check(o, e):
