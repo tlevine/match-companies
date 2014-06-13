@@ -57,6 +57,10 @@ def respell(company_name:str) -> str:
 
 def bid(name):
     for company, country in split(name):
+        if country == None:
+            s = re.search(COUNTRY, company)
+            if s != None:
+                country = s.group()
         yield respell(company), country
 
 def args(reader):
@@ -73,8 +77,6 @@ def args(reader):
             company_data = dict(bid_data)
             company_data['original.company.country'] = country
             yield company_data, company
-
-
 
 def main():
     fieldnames = [
