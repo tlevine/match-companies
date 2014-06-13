@@ -18,7 +18,6 @@ def ask(writer, args):
             name = uri = None
         bid_data.update({
             'original.company.name': query,
-            'original.company.country': None,
             'opencorporates.company.name': name,
             'opencorporates.company.uri': uri,
         })
@@ -56,19 +55,21 @@ def args(reader):
             'bidder.country': bid['Country'],
             'bid.status': bid['Status'],
         }
-        for company in split(bid['Name']):
-            yield bid_data, company
+        for company, country in split(bid['Name']):
+            company_data = dict(bid_data)
+            company_data['original.company.country'] = country
+            yield company_data, company
 
 def main():
     fieldnames = [
-        'project.uri',
         'project.name',
+        'contract.uri',
         'contract.number',
-        'bid.uri',
-        'bid.status',
         'bidder.name',
+        'bid.status',
         'bidder.country',
         'original.company.name',
+        'original.company.country',
         'opencorporates.company.name',
         'opencorporates.company.uri',
     ]
