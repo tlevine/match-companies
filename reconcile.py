@@ -17,8 +17,8 @@ def profile():
     for row in csv.DictReader(open(os.path.join('pagedata','company-profile.csv'))):
         raw_bids[row['CompanyId']].append((row['ProfileKey'],row['ProfileValue']))
 
-    bids = defaultdict(lambda: {})
-    for key, raw_bid in raw_bids.items():
+    for contractid, raw_bid in raw_bids.items():
+        bid = {'contract.id':contractid}
         for match, name in [
                 (r'^address$', 'address'),
                 (r'^name$', 'name'),
@@ -43,11 +43,8 @@ def profile():
             ]:
             for key, value in raw_bid:
                 if re.search(match, key, flags = re.IGNORECASE):
-                    bids[name] = value
-
-    return bids
-
-profile_data = profile()
+                    bid[name] = value
+        yield bid
 
 def ask(writer, args):
     data, query = args
@@ -103,6 +100,7 @@ def bids(name):
         yield respell(company), country
 
 def args(reader):
+    profile_data = {row['contract.id']:row for row in profile()}
     for bid in reader:
         bid_data = {
             'project.name': bid['ProjectName'],
