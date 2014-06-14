@@ -115,7 +115,7 @@ def args(reader):
         for company, country in bids(bid['Name']):
             company_data = dict(bid_data)
             company_data['original.company.country'] = country
-            company_data.update(profile_data[bid['CompanyId']])
+            company_data.update(profile_data.get(bid['CompanyId'], {}))
             yield company_data, company
 
 def main():
