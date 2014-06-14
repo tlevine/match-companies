@@ -62,6 +62,7 @@ def ask(writer, args):
             'opencorporates.company.name': name,
             'opencorporates.company.uri': uri,
         })
+        data = convert_money(data)
         writer.writerow(data)
 
 def strip(x:str) -> str:
@@ -137,9 +138,15 @@ def main():
         'score.financial',
         'score.technical',
         'score.final',
-        'price.opening',
-        'price.evaluated',
-        'price.contract',
+        'original.price.opening',
+        'original.price.evaluated',
+        'original.price.contract',
+        'price.opening.currency',
+        'price.opening.amount',
+        'price.evaluated.currency',
+        'price.evaluated.amount',
+        'price.contract.currency',
+        'price.contract.amount',
         'method.procurement',
         'method.selection',
         'scope',
@@ -162,6 +169,11 @@ def money(raw):
     else:
         currency = amount = None
     return currency, amount
+
+def convert_money(row:dict) -> dict:
+    for field in ['opening','evaluated','contract']:
+        row['price.%s.currency' % field], row['price.%s.currency' % field] = money(row['original.price.%' % field])
+    return row
 
 if __name__ == '__main__':
     main()
