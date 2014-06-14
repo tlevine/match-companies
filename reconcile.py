@@ -155,7 +155,13 @@ def main():
 
 def money(raw):
     'If there are multiple amounts in different currencies, take the first one.'
-   #return currency, amount
+    match = re.match(r'[^A-Z]([A-Z]{3})[^0-9]*([0-9,]+)[^0-9,]*$', raw)
+    if match:
+        currency = m.group(1)
+        amount = float(m.group(2))
+    else:
+        currency = amount = None
+    return currency, amount
 
 if __name__ == '__main__':
     main()

@@ -40,7 +40,6 @@ def test():
         yield check_bid, observed, expected
 
 def test_country():
-    print(r.COUNTRY)
     n.assert_list_equal(re.findall(r.COUNTRY, 'aeu notehu New Zealand aoeunth'), ['New Zealand'])
 
 def test_money():
@@ -49,5 +48,8 @@ def test_money():
         ('IDR 80,015,154,351.00', ('IDR', 80015154351.00)),
     ]
     for raw, expected in testcases:
-        n.assert_tuple_equal(r.money(raw), expected)
+        yield check_money, raw, expected
+
+def check_money(raw, expected):
+    n.assert_tuple_equal(r.money(raw), expected)
 
