@@ -41,12 +41,12 @@ def profile():
         raw_bids[row['CompanyId']].append((row['ProfileKey'],row['ProfileValue']))
 
     for contractid, raw_bid in raw_bids.items():
-        bid = {'contract.id':contractid}
+        bid = {}
         for match, name in MATCHNAMES:
             for key, value in raw_bid:
                 if re.search(match, key, flags = re.IGNORECASE):
                     bid[name] = value
-        yield bid
+        yield contractid, bid
 
 def ask(writer, args):
     data, query = args
@@ -102,7 +102,7 @@ def bids(name):
         yield respell(company), country
 
 def args(reader):
-    profile_data = {row['contract.id']:row for row in profile()}
+    profile_data = dict(profile())
     for bid in reader:
         bid_data = {
             'project.name': bid['ProjectName'],
@@ -130,7 +130,25 @@ def main():
         'original.company.country',
         'opencorporates.company.name',
         'opencorporates.company.uri',
-    ] + list(set(x for _, x in MATCHNAMES))
+        'address',
+        'country',
+        'duration',
+        'procurement.method',
+        'date.signature',
+        'score.financial',
+        'score.technical',
+        'score.final',
+        'price.opening',
+        'price.evaluated',
+        'price.contract',
+        'method.procurement',
+        'method.selection',
+        'scope',
+        'name',
+        'reason.rejection',
+        'small.contract.notice',
+        'ranking.final',
+    ]
     reader = csv.DictReader(open(os.path.join('pagedata', 'company.csv')))
     writer = csv.DictWriter(sys.stdout, fieldnames = fieldnames)
     writer.writeheader()
