@@ -17,14 +17,33 @@ def profile():
     for row in csv.DictReader(open(os.path.join('pagedata','company-profile.csv'))):
         raw_bids[row['CompanyId']].append((row['ProfileKey'],row['ProfileValue']))
 
-    bids = defaultdict(lambda: [])
-    for raw_bid in raw_bids:
-        for key, value in raw_bid:
-            a
-        
- Counter({'Address': 21670, 'Bid Price at Opening': 16785, 'Evaluated Bid Price': 11646, 'Country': 6495, 'Reason for Rejection': 5433, 'Contract Price': 4071, 'Duration': 2586, 'Price': 2579, 'Method of Procurement': 2374, 'Summary Scope of Contract': 2354, 'Contract Signature Date': 2162, 'Technical Score': 2017, 'Financial Score': 1977, 'Final Ranking': 1970, 'Final Score': 1954, 'Final Evaluation Price': 1946, 'Awarded Firm/Indv.': 1407, 'Project': 1082, 'Report Period': 963, 'Final Negotiated Price': 714, 'Small Contract Award Notice': 582, 'Technical score': 475
-, 'Financial score': 426, 'Final score': 382, 'Contract SignatureDate': 356, 'Final ranking': 295, 'FRBid Price at Opening': 233, 'FRAddress': 233, 'Name': 203, 'FREvaluated Bid Price': 200, 'Me
-thod ofProcurement': 198, 'Final evaluation price': 192,
+    bids = defaultdict(lambda: {})
+    for key, raw_bid in raw_bids.items():
+        for match, name in [
+                (r'^address$', 'address'),
+                (r'^name$', 'name'),
+                ('opening.*price', 'price.opening'),
+                ('price.*opening', 'price.opening'),
+                ('evaluat(?:ed|ion).*price', 'price.evaluated'),
+                ('country', 'country'),
+                (r'reason.*rejection', 'reason.rejection'),
+                (r'contract ?price', 'price.contract'),
+                ('duration', 'duration'),
+                (r'method.*procurement', 'procurement.method'),
+                ('scope', 'scope'),
+                (r'signature.*date', 'date.signature'),
+                (r'technical.*score', 'score.technical'),
+                (r'financial.*score', 'score.financial'),
+                (r'final.*score', 'score.final'),
+                (r'final ?ranking', 'ranking.final'),
+                (r'small ?contract', 'small.contract.notice'),
+                (r'method.*procurement', 'method.procurement'),
+                (r'method.*selection', 'method.selection'),
+                (r'selection.*method', 'method.selection'),
+            ]:
+            for key, value in raw_bid:
+                if re.search(match, key, flags = re.IGNORECASE):
+                    bids[name] = value
 
     return bids
 
