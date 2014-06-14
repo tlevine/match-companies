@@ -153,5 +153,9 @@ def main():
     writer.writeheader()
     threaded(args(reader), partial(ask, writer), num_threads = 30)
 
+def money(raw):
+    'If there are multiple amounts in different currencies, take the first one.'
+   #return currency, amount
+
 if __name__ == '__main__':
     main()

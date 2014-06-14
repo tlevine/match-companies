@@ -42,3 +42,12 @@ def test():
 def test_country():
     print(r.COUNTRY)
     n.assert_list_equal(re.findall(r.COUNTRY, 'aeu notehu New Zealand aoeunth'), ['New Zealand'])
+
+def test_money():
+    testcases = [
+        ('USD 95,363,935.00BDT 1,096,691,185.00', ('USD', 95363935.00)),
+        ('IDR 80,015,154,351.00', ('IDR', 80015154351.00)),
+    ]
+    for raw, expected in testcases:
+        n.assert_tuple_equal(r.money(raw), expected)
+
