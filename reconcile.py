@@ -172,7 +172,7 @@ def money(raw):
 
 def convert_money(row:dict) -> dict:
     for field in ['opening','evaluated','contract']:
-        row['price.%s.currency' % field], row['price.%s.currency' % field] = money(row['original.price.%s' % field])
+        row['price.%s.currency' % field], row['price.%s.currency' % field] = money(row.get('original.price.%s' % field, ''))
     return row
 
 if __name__ == '__main__':
