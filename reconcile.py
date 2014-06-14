@@ -155,10 +155,10 @@ def main():
 
 def money(raw):
     'If there are multiple amounts in different currencies, take the first one.'
-    match = re.match(r'[^A-Z]([A-Z]{3})[^0-9]*([0-9,]+)[^0-9,]*$', raw)
+    match = re.match(r'^[^A-Z]*([A-Z]{3})[^0-9]*([0-9,]+)[^0-9,]*', raw)
     if match:
-        currency = m.group(1)
-        amount = float(m.group(2))
+        currency = match.group(1)
+        amount = float(match.group(2).replace(',',''))
     else:
         currency = amount = None
     return currency, amount
