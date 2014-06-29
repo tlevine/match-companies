@@ -1,7 +1,7 @@
 library(plyr)
 
 companies <- read.csv('output/companies.csv')
-vietnam <- sum(all$bidder.country == 'Vietnam' | grepl('Vietnam', all$original.company.country, ignore.case = TRUE) | grepl('Vietnam', all$country, ignore.case = TRUE))
+vietnam <- all$bidder.country == 'Vietnam' | grepl('Vietnam', all$original.company.country, ignore.case = TRUE) | grepl('Vietnam', all$country, ignore.case = TRUE)
 
 group.companies <- function(df){
   columns <- c(
